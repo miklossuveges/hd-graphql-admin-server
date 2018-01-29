@@ -1,0 +1,39 @@
+{
+  "name": "hd-graphql-schema-gen",
+  "license": "UNLICENSED",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "main": "lib/bundle.cjs.js",
+  "module": "lib/bundle.esm.js",
+  "scripts": {
+    "lint": "standard src/**/*.js",
+    "lint-fix": "standard --fix src/**/*.js",
+    "build": "rimraf lib && node build.js",
+    "test": "BABEL_ENV=test jest",
+    "precommit": "npm run lint",
+    "prepush": "npm test",
+    "prepublish": "npm test && npm run build"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "env": "jest"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "babel-jest": "^22.1.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-syntax-object-rest-spread": "^6.13.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "husky": "^0.14.3",
+    "jest": "^22.1.4",
+    "rimraf": "^2.6.2",
+    "rollup": "^0.55.1",
+    "rollup-plugin-babel": "^3.0.3",
+    "standard": "^10.0.3"
+  }
+}
