@@ -1,4 +1,11 @@
+import { buildDirectiveRegistry } from './schema'
 
-export default () => {
-  console.log('🚮')
+export const run = async () => {
+  try {
+    await buildDirectiveRegistry()
+  } catch (err) {
+    console.error(err)
+  }
 }
+
+run()
