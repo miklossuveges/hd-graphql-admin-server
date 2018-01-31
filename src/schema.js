@@ -85,7 +85,7 @@ schema {
 }
 `
 
-export const createDirectiveRegistrySchema = async (schemaIDL) => {
+export const makeExecutableDirectiveRegistrySchema = async (schemaIDL) => {
   const directiveRegistry = buildDirectiveRegistry(schemaIDL)
   const resolvers = {
     Query: {
@@ -97,6 +97,12 @@ export const createDirectiveRegistrySchema = async (schemaIDL) => {
     }
   }
   const schema = makeExecutableSchema({ typeDefs: DirectiveRegistryIDL, resolvers })
-  console.log(await graphql(schema, 'query { getDirectives(type: "Comment", field: "archived") }'))
+  // console.log(await graphql(schema, 'query { getDirectives(type: "Comment", field: "archived") }'))
   return schema
 }
+
+
+/*
+
+
+*/

@@ -21,3 +21,4 @@ export const query = sql => new Promise((resolve, reject) =>
     if (error) return reject(error)
     resolve({ results, fields })
   }))
+
