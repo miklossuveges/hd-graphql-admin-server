@@ -1,10 +1,10 @@
-import { createDirectiveRegistrySchema } from './schema'
-import { run } from './app'
+import { initModels } from './db'
 
 ;(async () => {
   try {
     // await createDirectiveRegistrySchema()
-    await run()
+    // await run()
+    await initModels()
   } catch (err) {
     console.error(err)
   }
