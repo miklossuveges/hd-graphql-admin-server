@@ -1,6 +1,6 @@
 import {
-  // graphql,
-  // buildSchema,
+  graphql,
+  buildSchema,
   // introspectionQuery,
   // buildASTSchema,
   parse,
@@ -57,6 +57,41 @@ export const buildDirectiveRegistry = (schemaIDL = typeDefs) => {
     }
   })
 
-  console.log(JSON.stringify(directiveRegistry, null, 1))
+  // console.log(JSON.stringify(directiveRegistry, null, 1))
   return directiveRegistry
+}
+
+// type FieldDefinition {
+//   name: String!
+//   directives: [DirectiveAST]
+// }
+// type TypeDefinition {
+//   name: String!
+//   fields: [FieldDefinition]
+// }
+export const DirectiveRegistryIDL = `
+type DirectiveAST {
+  name: String!
+  ast: String!
+}
+type Query {
+  getDirectives(type: String!, field: String!): [String]
+}
+schema {
+  query: Query
+}
+`
+
+export const createDirectiveRegistrySchema = async (schemaIDL) => {
+  const directiveRegistry = buildDirectiveRegistry(schemaIDL)
+  const resolvers = {
+    getDirectives ({ type, field }) {
+      console.log(type, field)
+      if (directiveRegistry[type] && directiveRegistry[type][field]) { return directiveRegistry[type][field].map(JSON.stringify) }
+      return null
+    }
+  }
+  const schema = buildSchema(DirectiveRegistryIDL)
+  const boi = await graphql(schema, 'query { getDirectives(type: "Comment", field: "archived") }', resolvers)
+  console.log(boi)
 }
