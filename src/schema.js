@@ -1,12 +1,13 @@
 import {
   graphql,
-  buildSchema,
+  // buildSchema,
   // introspectionQuery,
   // buildASTSchema,
   parse,
   visit,
   Kind
 } from 'graphql'
+import { makeExecutableSchema } from 'graphql-tools'
 // import { query } from './mysql/index'
 
 const typeDefs = `
@@ -25,7 +26,9 @@ type dsa {
 
 export const buildDirectiveRegistry = (schemaIDL = typeDefs) => {
   const schemaAST = parse(schemaIDL)
+
   const directiveRegistry = {}
+
   let currentType, currentField
 
   visit(schemaAST, {
@@ -85,13 +88,15 @@ schema {
 export const createDirectiveRegistrySchema = async (schemaIDL) => {
   const directiveRegistry = buildDirectiveRegistry(schemaIDL)
   const resolvers = {
-    getDirectives ({ type, field }) {
-      console.log(type, field)
-      if (directiveRegistry[type] && directiveRegistry[type][field]) { return directiveRegistry[type][field].map(JSON.stringify) }
-      return null
+    Query: {
+      getDirectives (_, { type, field }) {
+        console.log(type, field)
+        if (directiveRegistry[type] && directiveRegistry[type][field]) { return directiveRegistry[type][field].map(JSON.stringify) }
+        return null
+      }
     }
   }
-  const schema = buildSchema(DirectiveRegistryIDL)
-  const boi = await graphql(schema, 'query { getDirectives(type: "Comment", field: "archived") }', resolvers)
-  console.log(boi)
+  const schema = makeExecutableSchema({ typeDefs: DirectiveRegistryIDL, resolvers })
+  console.log(await graphql(schema, 'query { getDirectives(type: "Comment", field: "archived") }'))
+  return schema
 }

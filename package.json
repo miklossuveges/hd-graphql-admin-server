@@ -40,6 +40,7 @@
   },
   "dependencies": {
     "graphql": "^0.12.3",
+    "graphql-tools": "^2.19.0",
     "join-monster": "^2.0.16",
     "mysql": "^2.15.0"
   }
