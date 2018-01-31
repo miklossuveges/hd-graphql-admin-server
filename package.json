@@ -43,6 +43,7 @@
     "graphql-tools": "^2.19.0",
     "join-monster": "^2.0.16",
     "join-monster-graphql-tools-adapter": "0.0.3",
-    "mysql": "^2.15.0"
+    "mysql": "^2.15.0",
+    "sequelize": "^4.32.2"
   }
 }

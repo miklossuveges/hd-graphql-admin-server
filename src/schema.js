@@ -101,8 +101,6 @@ export const makeExecutableDirectiveRegistrySchema = async (schemaIDL) => {
   return schema
 }
 
-
 /*
-
 
 */

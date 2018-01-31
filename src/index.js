@@ -1,11 +1,11 @@
 import { createDirectiveRegistrySchema } from './schema'
+import { run } from './app'
 
-export const run = async () => {
+;(async () => {
   try {
-    await createDirectiveRegistrySchema()
+    // await createDirectiveRegistrySchema()
+    await run()
   } catch (err) {
     console.error(err)
   }
-}
-
-run()
+})()

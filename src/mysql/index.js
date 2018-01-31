@@ -16,9 +16,8 @@ export const getPool = () => {
   return pool
 }
 
-export const query = sql => new Promise((resolve, reject) =>
+export const queryResult = sql => new Promise((resolve, reject) =>
   getPool().query(sql, (error, results, fields) => {
     if (error) return reject(error)
-    resolve({ results, fields })
+    resolve(results)
   }))
-
